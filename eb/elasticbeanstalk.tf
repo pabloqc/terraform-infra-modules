@@ -134,16 +134,6 @@ resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
     name      = "RollingUpdateType"
     value     = "Health"
   }
-  setting {
-    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
-    name      = "MaxBatchSize"
-    value     = "1"
-  }
-  setting {
-    namespace = "aws:autoscaling:updatepolicy:rollingupdate"
-    name      = "MinInstancesInService"
-    value     = "1"
-  }
 
   ############################# Environment Variables #############################
 
