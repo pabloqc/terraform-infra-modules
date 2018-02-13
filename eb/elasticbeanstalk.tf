@@ -36,18 +36,18 @@ resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
     name      = "ELBSubnets"
     value     = "${join(",", var.subnet_id)}"
   }
-  setting {
-    namespace = "aws:ec2:vpc"
-    name      = "ELBScheme"
-    value     = "internal"
-  }
 
   ############################# Loadbalancer #############################
 
   setting {
+    namespace = "aws:ec2:vpc"
+    name      = "ELBScheme"
+    value     = "${var.elb_visibility}"
+  }
+  setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "LoadBalancerType"
-    value     = "application"
+    value     = "${var.elb_type}"
   }
 
   ############################# Health Reporting #############################

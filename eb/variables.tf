@@ -13,6 +13,8 @@ variable "subnet_id" {
   type = "list"
 }
 
+variable "elb_visibility" {}
+variable "elb_type" {}
 variable "autoscaling_group_min" {}
 variable "autoscaling_group_max" {}
 variable "autoscaling_trigger_measure" {}
