@@ -13,8 +13,14 @@ variable "subnet_id" {
   type = "list"
 }
 
+variable "instance_type" {}
 variable "elb_visibility" {}
 variable "elb_type" {}
+
+variable "listener_protocol" {
+  default = "HTTP"
+}
+
 variable "autoscaling_group_min" {}
 variable "autoscaling_group_max" {}
 variable "autoscaling_trigger_measure" {}

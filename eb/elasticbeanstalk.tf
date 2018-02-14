@@ -49,6 +49,11 @@ resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
     name      = "LoadBalancerType"
     value     = "${var.elb_type}"
   }
+  setting {
+    namespace = "aws:elb:listener:listener_port"
+    name      = "ListenerProtocol"
+    value     = "${var.listener_protocol}"
+  }
 
   ############################# Health Reporting #############################
 
@@ -73,7 +78,7 @@ resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "InstanceType"
-    value     = "t2.medium"
+    value     = "${var.instance_type}"
   }
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
