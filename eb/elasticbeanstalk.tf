@@ -85,6 +85,16 @@ resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
     name      = "IamInstanceProfile"
     value     = "${aws_iam_instance_profile.eb_service_profile.arn}"
   }
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "RootVolumeType"
+    value     = "gp2"
+  }
+  setting {
+    namespace = "aws:autoscaling:launchconfiguration"
+    name      = "RootVolumeSize"
+    value     = "36"
+  }
 
   ############################# Autoscaling Group #############################
 
@@ -144,8 +154,8 @@ resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
 
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
-    name      = "foo"
-    value     = "${lookup(var.environment_variables, "foo")}"
+    name      = "foo_url"
+    value     = "${lookup(var.environment_variables, "foo_url")}"
   }
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
