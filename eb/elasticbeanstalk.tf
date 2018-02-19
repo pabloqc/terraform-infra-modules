@@ -144,8 +144,8 @@ resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
 
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
-    name      = "ECS_AVAILABLE_LOGGING_DRIVERS"
-    value     = "${lookup(var.environment_variables, "ECS_AVAILABLE_LOGGING_DRIVERS")}"
+    name      = "foo"
+    value     = "${lookup(var.environment_variables, "foo")}"
   }
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
