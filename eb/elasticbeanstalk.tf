@@ -54,6 +54,11 @@ resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
     name      = "ListenerProtocol"
     value     = "${var.listener_protocol}"
   }
+  setting {
+    namespace = "aws:elb:loadbalancer"
+    name      = "CrossZone"
+    value     = "true"
+  }
 
   ############################# Health Reporting #############################
 
