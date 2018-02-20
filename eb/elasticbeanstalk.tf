@@ -93,7 +93,7 @@ resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "RootVolumeSize"
-    value     = "36"
+    value     = "64"
   }
 
   ############################# Autoscaling Group #############################
