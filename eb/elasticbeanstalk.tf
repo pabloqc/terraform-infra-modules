@@ -50,7 +50,7 @@ resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
     value     = "${var.elb_type}"
   }
   setting {
-    namespace = "aws:elb:listener:listener_port"
+    namespace = "aws:elb:listener"
     name      = "ListenerProtocol"
     value     = "${var.listener_protocol}"
   }
