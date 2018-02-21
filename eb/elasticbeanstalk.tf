@@ -9,6 +9,11 @@ resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
   application         = "${aws_elastic_beanstalk_application.upday-app-tf.name}"
   solution_stack_name = "${var.solution_stack_name}"
 
+  tags {
+    application = "${var.app_name}"
+    environment = "${var.environment_names[count.index]}"
+  }
+
   ############################# Elasticbeanstalk Settings #############################
   #
   # https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
