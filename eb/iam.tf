@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "ec2_instance_policy" {
 ############################# Create Role #############################
 
 resource "aws_iam_role" "eb_role" {
-  name = "${var.app_name}-eb-role"
+  name = "${var.owner}-${var.project}-eb-role"
   path = "/"
 
   assume_role_policy = "${data.aws_iam_policy_document.ec2_instance_policy.json}"
@@ -39,7 +39,7 @@ resource "aws_iam_role_policy_attachment" "eb_attachment" {
 ############################# Instance Profile #############################
 
 resource "aws_iam_instance_profile" "eb_service_profile" {
-  name = "${var.app_name}-instance-profile"
+  name = "${var.owner}-${var.project}-instance-profile"
   path = "/"
   role = "${aws_iam_role.eb_role.name}"
 }

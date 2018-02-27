@@ -1,23 +1,28 @@
 resource "aws_elastic_beanstalk_application" "upday-app-tf" {
-  name        = "${var.app_name}${var.app_name_sufix}"
+  name        = "${var.owner}-${var.project}"
   description = "${var.description}"
 }
 
 resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
-  count               = "${length(var.environment_names)}"
-  name                = "${var.app_name}-${var.environment_names[count.index]}"
+  name                = "${var.project}-${var.environment}"
   application         = "${aws_elastic_beanstalk_application.upday-app-tf.name}"
   solution_stack_name = "${var.solution_stack_name}"
 
   tags {
-    application = "${var.app_name}"
-    environment = "${var.environment_names[count.index]}"
+    Name        = "${var.owner}-${var.project}-${var.environment}"
+    Owner       = "${var.owner}"
+    Project     = "${var.project}"
+    Environment = "${var.environment}"
+    Terraform   = "True"
   }
 
   ############################# Elasticbeanstalk Settings #############################
   #
   # https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options-general.html
 
+  ############################# Environment Variables #############################
+
+  setting = ["${var.environment_variables}"]
 
   ############################# Network Tier #############################
 
@@ -29,7 +34,7 @@ resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
   setting {
     namespace = "aws:ec2:vpc"
     name      = "AssociatePublicIpAddress"
-    value     = "True"
+    value     = "${var.ec2_public}"
   }
   setting {
     namespace = "aws:ec2:vpc"
@@ -55,7 +60,7 @@ resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
     value     = "${var.elb_type}"
   }
   setting {
-    namespace = "aws:elb:listener"
+    namespace = "aws:elb:listener:listener_port"
     name      = "ListenerProtocol"
     value     = "${var.listener_protocol}"
   }
@@ -83,7 +88,7 @@ resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "EC2KeyName"
-    value     = "kitchen"
+    value     = "${var.ec2_key_name}"
   }
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
@@ -158,18 +163,5 @@ resource "aws_elastic_beanstalk_environment" "upday-env-tf" {
     namespace = "aws:autoscaling:updatepolicy:rollingupdate"
     name      = "RollingUpdateType"
     value     = "Health"
-  }
-
-  ############################# Environment Variables #############################
-
-  setting {
-    namespace = "aws:elasticbeanstalk:application:environment"
-    name      = "foo"
-    value     = "${lookup(var.environment_variables, "foo")}"
-  }
-  setting {
-    namespace = "aws:elasticbeanstalk:application:environment"
-    name      = "best_framework_in_the_world"
-    value     = "${lookup(var.environment_variables, "best_framework_in_the_world")}"
   }
 }

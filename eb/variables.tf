@@ -1,18 +1,19 @@
-variable "app_name" {}
-variable "app_name_sufix" {}
+############################# Tags #############################
+
+variable "owner" {}
+variable "project" {}
+variable "environment" {}
 variable "description" {}
+
+############################# ElasticBeanstalk #############################
+
 variable "solution_stack_name" {}
-
-variable "environment_names" {
-  type = "list"
-}
-
 variable "vpc_id" {}
-
+variable "ec2_public" {}
 variable "subnet_id" {
   type = "list"
 }
-
+variable "ec2_key_name" {}
 variable "instance_type" {}
 variable "elb_visibility" {}
 variable "elb_type" {}
@@ -30,7 +31,7 @@ variable "autoscaling_trigger_lothreshold" {}
 variable "autoscaling_trigger_upthreshold" {}
 
 variable "environment_variables" {
-  type = "map"
+  type = "list"
 }
 
 variable "iam_policies" {
